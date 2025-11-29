@@ -10,12 +10,12 @@
 #if canImport(SpotifyiOSWrapper)
 
 import UIKit
-import CXShim
+import Combine
 import SpotifyiOSWrapper
 
 extension MusicPlayers {
     
-    public final class SpotifyiOS: NSObject, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate {
+    public final class SpotifyiOS: NSObject, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate, ObservableObject {
         
         public static let accessTokenDefaultsKey = "ddddxxx.LyricsKit.SpotifyAccessToken"
         
@@ -115,7 +115,7 @@ extension MusicPlayers {
     }
 }
 
-extension MusicPlayers.SpotifyiOS: MusicPlayerProtocol, CXShim.ObservableObject {
+extension MusicPlayers.SpotifyiOS: MusicPlayerProtocol {
     
     public var name: MusicPlayerName? {
         return .spotify

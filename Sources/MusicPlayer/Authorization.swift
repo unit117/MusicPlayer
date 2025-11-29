@@ -7,12 +7,16 @@
 //  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 //
 
-import CXShim
+#if canImport(Combine)
+import Combine
+#endif
 
 public protocol MusicPlayerAuthorization: AnyObject {
     
     var isAuthorized: Bool { get }
+    #if canImport(Combine)
     var authorizationStatusWillChange: AnyPublisher<Bool, Never> { get }
+    #endif
     
     func requestAuthorizationIfNeeded()
 }

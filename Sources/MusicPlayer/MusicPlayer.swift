@@ -8,7 +8,9 @@
 //
 
 import Foundation
-import CXShim
+#if canImport(Combine)
+import Combine
+#endif
 
 public protocol MusicPlayerProtocol: AnyObject {
     
@@ -17,9 +19,11 @@ public protocol MusicPlayerProtocol: AnyObject {
     var playbackState: PlaybackState { get }
     var playbackTime: TimeInterval { get set }
     
+    #if canImport(Combine)
     var objectWillChange: ObservableObjectPublisher { get }
     var currentTrackWillChange: AnyPublisher<MusicTrack?, Never> { get }
     var playbackStateWillChange: AnyPublisher<PlaybackState, Never> { get }
+    #endif
     
     func resume()
     func pause()

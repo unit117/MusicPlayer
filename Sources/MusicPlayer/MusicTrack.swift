@@ -43,7 +43,7 @@ public struct MusicTrack {
     #endif
 }
 
-extension MusicTrack: Equatable, Hashable {
+extension MusicTrack: Equatable, Hashable, @unchecked Sendable {
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.id == rhs.id

@@ -10,7 +10,6 @@
 #if os(Linux)
 
 import Foundation
-import CXShim
 import playerctl
 
 extension UnsafeMutableRawPointer {
@@ -22,7 +21,7 @@ extension UnsafeMutableRawPointer {
 
 extension MusicPlayers {
     
-    public final class MPRIS: ObservableObject {
+    public final class MPRIS {
         
         let player: UnsafeMutablePointer<PlayerctlPlayer>
         
@@ -30,8 +29,8 @@ extension MusicPlayers {
         
         public var name: MusicPlayerName? = MusicPlayerName.mpris
         
-        @Published public private(set) var currentTrack: MusicTrack?
-        @Published public private(set) var playbackState: PlaybackState = .stopped
+        public private(set) var currentTrack: MusicTrack?
+        public private(set) var playbackState: PlaybackState = .stopped
         
         private var signals: [gulong] = []
         
@@ -108,14 +107,6 @@ extension MusicPlayers.MPRIS {
 }
 
 extension MusicPlayers.MPRIS: MusicPlayerProtocol {
-    
-    public var currentTrackWillChange: AnyPublisher<MusicTrack?, Never> {
-        $currentTrack.eraseToAnyPublisher()
-    }
-    
-    public var playbackStateWillChange: AnyPublisher<PlaybackState, Never> {
-        $playbackState.eraseToAnyPublisher()
-    }
     
     public var playbackTime: TimeInterval {
         get {
