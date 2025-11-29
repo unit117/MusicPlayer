@@ -7,7 +7,11 @@
 //  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 //
 
-#if os(Linux)
+// NOTE: MPRISNowPlaying requires Combine which is not available on Linux.
+// This feature is disabled until a Combine-compatible solution is available.
+// Use MusicPlayers.MPRIS directly for Linux MPRIS support.
+
+#if false // os(Linux) - Disabled: requires Combine (NowPlaying -> Agent)
 
 import playerctl
 

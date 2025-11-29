@@ -7,6 +7,11 @@ Music player submodule for [LyricsX](https://github.com/ddddxxx/LyricsX).
 
 Unified API for music players.
 
+## Requirements
+
+- Swift 5.9+
+- macOS 12.0+ / iOS 15.0+
+
 ## Supported Players
 
 #### macOS
@@ -71,6 +76,53 @@ let player = MusicPlayers.Scriptable(name: .appleMusic)!
 let track = player.currentTrack.title
 if player.playbackState.isPlaying {
     player.skipToNextItem()
+}
+```
+
+### Async/Await (Swift Concurrency)
+
+```swift
+// Stream playback state changes
+for await state in player.playbackStateStream {
+    print("Playback state: \(state)")
+}
+
+// Stream track changes
+for await track in player.currentTrackStream {
+    print("Now playing: \(track?.title ?? "Nothing")")
+}
+```
+
+### SwiftUI Integration with @Observable (macOS 14+, iOS 17+)
+
+```swift
+import SwiftUI
+import MusicPlayer
+
+struct PlayerView: View {
+    @State private var observablePlayer = ObservableMusicPlayer()
+    
+    var body: some View {
+        VStack {
+            if let track = observablePlayer.currentTrack {
+                Text(track.title ?? "Unknown")
+                Text(track.artist ?? "Unknown Artist")
+            }
+            
+            HStack {
+                Button("Previous") { observablePlayer.skipToPreviousItem() }
+                Button(observablePlayer.playbackState.isPlaying ? "Pause" : "Play") {
+                    observablePlayer.playPause()
+                }
+                Button("Next") { observablePlayer.skipToNextItem() }
+            }
+        }
+        .onAppear {
+            if let player = MusicPlayers.Scriptable(name: .appleMusic) {
+                observablePlayer.setPlayer(player)
+            }
+        }
+    }
 }
 ```
 

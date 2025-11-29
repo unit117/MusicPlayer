@@ -7,8 +7,10 @@
 //  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 //
 
+#if canImport(Combine)
+
 import Foundation
-import CXShim
+import Combine
 
 extension MusicPlayers {
     
@@ -85,3 +87,5 @@ extension MusicPlayers.Agent: MusicPlayerProtocol {
         designatedPlayer?.updatePlayerState()
     }
 }
+
+#endif
