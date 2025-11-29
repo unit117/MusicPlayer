@@ -63,7 +63,6 @@ Unified API for music players.
 
 - [x] Agent: Delegate events to another player.
 - [x] Now Playing: Automatically choose a playing player from given players.
-- [x] MPRIS Now Playing: Just like Now Playing, but automatically find available MPRIS players.
 - [x] Virtual: A virtual player that allows you to manipulate its state.
 - [ ] Remote: Sync player state from other devices.
 
